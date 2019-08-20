@@ -20,19 +20,16 @@ int MIN(int x, int y){
 
 void plot_table(table t){
 	int i, j;
-	printf("\t");
-	for(i = 0; i< COLS; i++){
-		printf("%d\t", i+1);
-	}
+	printf("\t1   2   3   4   5   6   7   8   9   10  11  12  13  14  15");
 	printf("\n");
 
 	for(i = 0; i<LINES; i++){
 		printf("%d\t", i+1);
 		for(j = 0; j<COLS; j++)
 		#ifdef DEBUG
-			printf("%c\t", t.hid[i][j]);
+			printf("%c   ", t.hid[i][j]);
 		#else
-			printf("%c\t", t.mat[i][j]);
+			printf("%c   ", t.mat[i][j]);
 		#endif
 		printf("\n");
 	}
