@@ -1,2 +1,2 @@
-src/main
-src/obj/*.o
+**/main.orc
+obj/
