@@ -91,28 +91,43 @@ void fill_numbers(table *t){
 }
 
 int reveal_cell(table *t, int a, int b){
-
 	if(a < 0 || a >=LINES || b < 0 || b >= COLS)
 		return 1;
-	t->mat[a][b] = t->hid[a][b];
-	if(t->mat[a][b] == 'x')
+
+	if(t->hid[a][b] == 'x'){
+		t->mat[a][b] = t->hid[a][b];
 		return -1; //Dead
-	if(t->mat[a][b] == '0'){
+	}
+	if(t->hid[a][b] == '0'){
 		reveal_zeroes(t,a,b);
+	}
+	else{
+		t->mat[a][b] = t->hid[a][b];
 	}
 	return 0;
 }
 
 void reveal_zeroes(table *t, int a, int b){
-	t->mat[a][b] = t->hid[a][b];return;
-	if(t->hid[a][b] != '0')
-		return;
-	if(a-1 >= 0)
-		reveal_zeroes(t, a-1, b);
-	if(b-1 >= 0)
-		reveal_zeroes(t, a, b-1);
-	if(a+1 < LINES)
-		reveal_zeroes(t, a+1, b);
-	if(b+1 < COLS)
-		reveal_zeroes(t, a, b+1);
+	if(t->mat[a][b] == 'H'){
+		t->mat[a][b] = t->hid[a][b];
+		if(t->mat[a][b] == '0'){
+			reveal_zeroes(t, MAX(a-1, 0), b);
+			reveal_zeroes(t, a, MAX(b-1, 0));
+			reveal_zeroes(t, MIN(a+1,LINES-1), b);
+			reveal_zeroes(t, a, MIN(b+1, COLS-1));
+		}
+		//If the cell wasn't yet revealed.
+	}
+	return;
+}
+
+int check_victory(table t){
+	int i,j;
+	for(i = 0; i<LINES; i++){
+		for(j = 0; j<LINES; j++){
+			if(t.hid[i][j] != t.mat[i][j] && t.hid[i][j] != 'x')
+				return 0;
+		}
+	}
+	return 1;
 }
