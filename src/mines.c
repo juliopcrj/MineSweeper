@@ -20,12 +20,19 @@ int MIN(int x, int y){
 
 void plot_table(table t){
 	int i, j;
+	printf("\t");
+	for(i = 0; i< COLS; i++){
+		printf("%d\t", i+1);
+	}
+	printf("\n");
+
 	for(i = 0; i<LINES; i++){
+		printf("%d\t", i+1);
 		for(j = 0; j<COLS; j++)
 		#ifdef DEBUG
-			printf("%c ", t.hid[i][j]);
+			printf("%c\t", t.hid[i][j]);
 		#else
-			printf("%c ", t.mat[i][j]);
+			printf("%c\t", t.mat[i][j]);
 		#endif
 		printf("\n");
 	}
@@ -85,6 +92,8 @@ void fill_numbers(table *t){
 
 int reveal_cell(table *t, int a, int b){
 
+	if(a < 0 || a >=LINES || b < 0 || b >= COLS)
+		return 1;
 	t->mat[a][b] = t->hid[a][b];
 	if(t->mat[a][b] == 'x')
 		return -1; //Dead
@@ -95,7 +104,7 @@ int reveal_cell(table *t, int a, int b){
 }
 
 void reveal_zeroes(table *t, int a, int b){
-	t->mat[a][b] = t->hid[a][b];
+	t->mat[a][b] = t->hid[a][b];return;
 	if(t->hid[a][b] != '0')
 		return;
 	if(a-1 >= 0)
@@ -106,5 +115,4 @@ void reveal_zeroes(table *t, int a, int b){
 		reveal_zeroes(t, a+1, b);
 	if(b+1 < COLS)
 		reveal_zeroes(t, a, b+1);
-
 }

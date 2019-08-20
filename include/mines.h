@@ -7,6 +7,12 @@
 
 #define DEBUG
 
+#ifdef _WIN32
+#define CLEAR "cls"
+#else
+#define CLEAR "clear"
+#endif
+
 typedef enum {TRUE,FALSE} bool;
 
 typedef struct{

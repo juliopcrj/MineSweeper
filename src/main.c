@@ -3,6 +3,8 @@
 #include <time.h>
 #include <mines.h>
 
+#define clear() printf("\033[H\033[J")
+
 int main(int argc, char **argv){
 	// seeding the rand
 	srand(time(NULL));
@@ -13,11 +15,13 @@ int main(int argc, char **argv){
 
 	int i,j;
 	do{
+		clear();
 		plot_table(t);
 		printf("Please pick your line and column\n");
 		scanf("%d %d", &i, &j);
-	}while(reveal_cell(&t, i, j) != -1);
+	}while(reveal_cell(&t, i-1, j-1) != -1);
 
+	system(CLEAR);
 	plot_table(t);
 	printf("KABOOOOM!\n");
 	return 0;
