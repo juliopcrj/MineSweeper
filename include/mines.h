@@ -3,7 +3,7 @@
 
 #define LINES 11 //Number of lines on grid
 #define COLS  15 //Number of columns on grid
-#define MINES 40 //Number of mines to put on grid
+#define MINES 20 //Number of mines to put on grid
 
 #define DEBUG
 
@@ -14,15 +14,12 @@ typedef struct{
 	bool hid[11][15];
 }table;
 
-typedef struct{
-	int x;
-	int y;
-}point;
 
 void fill_table(table*);
 void plot_table(table);
-void reveal_cell(table*, point);
+int reveal_cell(table*, int, int);
 void fill_numbers(table*);
+void reveal_zeroes(table*, int, int);
 
 #ifdef DEBUG
 int MAX(int,int);

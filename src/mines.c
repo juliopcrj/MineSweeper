@@ -63,16 +63,12 @@ void fill_table(table *t){
 
 int round_count(table t, int a, int b){
 	int i,j, count=0;
-	for(i = NORMALIZE(a-1,0,LINES); i<NORMALIZE(a+1,0,LINES); i++){
-		for(j = NORMALIZE(j-1,0,COLS); j<NORMALIZE(j+1,0,COLS); j++){
+	for(i = NORMALIZE(a-1,0,LINES); i<=NORMALIZE(a+1,0,LINES); i++){
+		for(j = NORMALIZE(b-1,0,COLS); j<=NORMALIZE(b+1,0,COLS); j++){
 			if(t.hid[i][j] == 'x')
 				count ++;
 		}
 	}
-
-	#ifdef DEBUG
-	printf("Count is %d, and value is %c\n", count, '0'+count);
-	#endif
 	return count;
 }
 
@@ -87,6 +83,28 @@ void fill_numbers(table *t){
 	}
 }
 
-void reveal_cell(table *t, point p){
-	//Todo: if cell is bomb, end game. Else, show cell
+int reveal_cell(table *t, int a, int b){
+
+	t->mat[a][b] = t->hid[a][b];
+	if(t->mat[a][b] == 'x')
+		return -1; //Dead
+	if(t->mat[a][b] == '0'){
+		reveal_zeroes(t,a,b);
+	}
+	return 0;
+}
+
+void reveal_zeroes(table *t, int a, int b){
+	t->mat[a][b] = t->hid[a][b];
+	if(t->hid[a][b] != '0')
+		return;
+	if(a-1 >= 0)
+		reveal_zeroes(t, a-1, b);
+	if(b-1 >= 0)
+		reveal_zeroes(t, a, b-1);
+	if(a+1 < LINES)
+		reveal_zeroes(t, a+1, b);
+	if(b+1 < COLS)
+		reveal_zeroes(t, a, b+1);
+
 }

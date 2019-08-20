@@ -10,7 +10,15 @@ int main(int argc, char **argv){
 	table t;
 	fill_table(&t);
 	printf("\n");
-	plot_table(t);
 
+	int i,j;
+	do{
+		plot_table(t);
+		printf("Please pick your line and column\n");
+		scanf("%d %d", &i, &j);
+	}while(reveal_cell(&t, i, j) != -1);
+
+	plot_table(t);
+	printf("KABOOOOM!\n");
 	return 0;
 }
