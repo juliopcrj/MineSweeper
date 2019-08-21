@@ -128,3 +128,29 @@ int check_victory(table t){
 	}
 	return 1;
 }
+
+void reveal_all_mines(table t, int a, int b){
+	int i,j;
+	printf("\t1   2   3   4   5   6   7   8   9   10  11  12  13  14  15");
+	printf("\n");
+	for(i = 0; i<LINES; i++){
+		printf("%d\t", i+1);
+		for(j = 0; j<COLS; j++){
+			if(t.hid[i][j] == 'x'){
+				if(i == a && j == b){
+				printf("\33[1;31m");
+				printf("%c   ", t.hid[i][j]);
+				printf("\33[0m");
+			}else{
+				printf("\33[0;31m");
+				printf("%c   ", t.hid[i][j]);
+				printf("\33[0m");
+			}
+			}
+			else{
+				printf("%c   ", t.mat[i][j]);
+			}
+		}
+		printf("\n");
+	}
+}

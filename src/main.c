@@ -18,6 +18,8 @@ int main(int argc, char **argv){
 		printf("Please pick your line and column\nType 0 0 to end\n");
 		scanf("%d %d", &i, &j);
 		if(i == 0){
+			system(CLEAR);
+			reveal_all_mines(t, -1, -1);
 			j = check_victory(t);
 			if(j == 1){
 				printf("\33[0;32m");
@@ -31,7 +33,8 @@ int main(int argc, char **argv){
 	}while(reveal_cell(&t, i-1, j-1) == 0);
 
 	system(CLEAR);
-	plot_table(t);
-	printf("KABOOOOM!\n");
+	reveal_all_mines(t, i-1, j-1);
+	printf("\33[0;31m");
+	printf("TOTAL DEFEAT!\n");
 	return 0;
 }

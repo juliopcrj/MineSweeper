@@ -3,7 +3,7 @@
 
 #define LINES 11 //Number of lines on grid
 #define COLS  15 //Number of columns on grid
-#define MINES 20 //Number of mines to put on grid
+#define MINES 5 //Number of mines to put on grid
 
 //#define DEBUG
 
@@ -27,6 +27,7 @@ int reveal_cell(table*, int, int);
 void fill_numbers(table*);
 void reveal_zeroes(table*, int, int);
 int check_victory(table);
+void reveal_all_mines(table, int, int);
 
 #ifdef DEBUG
 int MAX(int,int);
